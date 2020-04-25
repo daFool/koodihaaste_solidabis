@@ -19,4 +19,6 @@ comment on column qset.vertex is 'Noden tunniste (pysäkki)';
 comment on column qset.dist is 'Etäisyys etsityllä reitillä';
 comment on column qset.prev is 'Noden edeltäjä etsittävällä polulla, Djikstran prev';
 comment on column qset.visited is 'Onko node käsitelty loppuun?';
+comment on column qset.line is 'Linjat, joilla tänne tultiin';
+comment on column qset.run is 'Ajo, jolle tämä qset-kuuluu';
 

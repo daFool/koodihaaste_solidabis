@@ -1,8 +1,12 @@
 #!/usr/bin/php
 <?php
+namespace KOODIHAASTE;
+
 if ($argc != 2) {
     die("${argv[0]}: <tiedosto> ($argc)".PHP_EOL);
 }
+
+require "startup.php";
 
 function haeKesto(array $tiet, string $src, string $dst): int {
     foreach($tiet as $tie) {
@@ -21,17 +25,32 @@ $a = json_decode(($json));
 $pysakit = $a->pysakit;
 $tiet = $a->tiet;
 $linjastot = $a->linjastot;
-printf("truncate table edges;%s", PHP_EOL);
-printf("truncate table qset;%s", PHP_EOL);
-foreach($linjastot as $linja=>$linjan_pysakit) {
-    foreach($linjan_pysakit as $i=>$pysakki) {
-        if ($i == 0) {
+$edges = new edges($db, $log);
+$qset = new qset($db, $log);
+
+try {
+    $edges->truncate();
+    $qset->truncate();
+
+    foreach($linjastot as $linja=>$linjan_pysakit) {
+        foreach($linjan_pysakit as $i=>$pysakki) {
+            if ($i == 0) {
+                $src=$pysakki;
+                continue;
+            }
+            $dst=$pysakki;
+            $kesto=haeKesto($tiet, $src, $dst);
+            $data = [
+                edges::LINE=>$linja,
+                edges::SRC=>$src,
+                edges::DST=>$dst,
+                edges::COST=>$kesto
+            ];
+            $edges->upsert($data);
             $src=$pysakki;
-            continue;
         }
-        $dst=$pysakki;
-        $kesto=haeKesto($tiet, $src, $dst);
-        printf("insert into edges(line, src, dst, cost) values ('{\"%s\"}', '%s','%s', %d);%s", $linja, $src, $dst, $kesto, PHP_EOL);
-        $src=$pysakki;
     }
+}
+catch(\mosBase\DatabaseException $de) {
+    die($de->getMessage());
 }
