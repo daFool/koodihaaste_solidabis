@@ -74,7 +74,13 @@ class djikstra {
                     $prevDist=$dist;
                 break;
                 default:
-                    $curColor=$this->pg_array_parse($stop[djikstra::LINES]);
+                    $c=$this->pg_array_parse($stop[djikstra::LINES]);
+                    $potColor=array_intersect($c, $curColor);
+                    if(empty($potColor)) {
+                        $curColor=$c;
+                    } else {
+                        $curColor=$potColor;
+                    }
                     $to=$stop[djikstra::BUSSTOP];
                     $dist=$stop[djikstra::DISTANCE];
                     $route[]=[ 
