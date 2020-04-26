@@ -8,7 +8,7 @@ class edges extends \mosBase\Malli {
     public const COST="cost";
     public const LINE="line";
     public const PKEY="p";
-
+    public const NODE="node";
     public function __construct(\mosBase\Database $db, \mosBase\Log $log) {
         $taulu = edges::EDGES;
         $avaimet = array(
@@ -39,5 +39,19 @@ class edges extends \mosBase\Malli {
         $s = sprintf("truncate table %s;", edges::EDGES);
         $st=$this->pdoPrepare($s, $this->db);
         $this->pdoExecute($st);
+    }
+
+    public function getNodes() {
+       $s = "select * from getNodes() order by node asc;";
+       $st = $this->pdoPrepare($s, $this->db);
+       $this->pdoExecute($st);
+       return $st->fetchAll(\PDO::FETCH_ASSOC); 
+    }
+
+    public function getEdges() {
+        $s = "select src, dst, cost, color from edges, unnest(line) color;";
+        $st = $this->pdoPrepare($s, $this->db);
+        $this->pdoExecute($st);
+        return $st->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

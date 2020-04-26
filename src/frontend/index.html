@@ -1,0 +1,49 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+    <style type="text/css">
+        #mynetwork {
+            width: 800px;
+            height: 600px;
+            border: 1px solid lightgray;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<div id="mynetwork"></div>
+
+<script type="text/javascript">
+    // create an array with nodes
+    var nodes = new vis.DataSet([
+        {id: 1, label: 'Node 1', color: 'red'},
+        {id: 2, label: 'Node 2'},
+        {id: 3, label: 'Node 3'},
+        {id: 4, label: 'Node 4'},
+        {id: 5, label: 'Node 5'}
+    ]);
+    var nodes2 = new vis.DataSet([{"id":1,"label":"A"},{"id":2,"label":"B"},{"id":3,"label":"C"},{"id":4,"label":"D"},{"id":5,"label":"E"},{"id":6,"label":"F"},{"id":7,"label":"G"},{"id":8,"label":"H"},{"id":9,"label":"I"},{"id":10,"label":"J"},{"id":11,"label":"K"},{"id":12,"label":"L"},{"id":13,"label":"M"},{"id":14,"label":"N"},{"id":15,"label":"O"},{"id":16,"label":"P"},{"id":17,"label":"Q"},{"id":18,"label":"R"}]);
+    // create an array with edges
+    var edges = new vis.DataSet([
+        {from: 1, to: 3, color: 'green', label: '5'},
+        {from: 1, to: 2},
+        {from: 2, to: 4},
+        {from: 2, to: 5}
+    ]);
+    var edges2 = new vis.DataSet([{"from":7,"to":11,"color":"yellow","label":"8"},{"from":11,"to":12,"color":"yellow","label":"1"},{"from":12,"to":13,"color":"yellow","label":"1"},{"from":3,"to":4,"color":"red","label":"5"},{"from":4,"to":18,"color":"red","label":"6"},{"from":18,"to":17,"color":"red","label":"5"},{"from":17,"to":14,"color":"red","label":"1"},{"from":15,"to":16,"color":"red","label":"2"},{"from":4,"to":2,"color":"green","label":"2"},{"from":2,"to":1,"color":"green","label":"3"},{"from":1,"to":3,"color":"green","label":"1"},{"from":3,"to":5,"color":"green","label":"2"},{"from":5,"to":6,"color":"yellow","label":"1"},{"from":5,"to":6,"color":"green","label":"1"},{"from":6,"to":7,"color":"yellow","label":"1"},{"from":6,"to":7,"color":"green","label":"1"},{"from":7,"to":8,"color":"green","label":"2"},{"from":8,"to":9,"color":"green","label":"2"},{"from":9,"to":10,"color":"green","label":"1"},{"from":4,"to":5,"color":"blue","label":"3"},{"from":5,"to":13,"color":"blue","label":"10"},{"from":13,"to":14,"color":"yellow","label":"2"},{"from":13,"to":14,"color":"blue","label":"2"},{"from":14,"to":15,"color":"red","label":"2"},{"from":14,"to":15,"color":"blue","label":"2"}]);
+    // create a network
+    var container = document.getElementById('mynetwork');
+
+    // provide the data in the vis format
+    var data = {
+        nodes: nodes2,
+        edges: edges2
+    };
+    var options = {};
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+</script>
+</body>
+</html>
