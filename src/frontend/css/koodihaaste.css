@@ -1,0 +1,8 @@
+div#reittikartta {
+    border: 1px solid black;
+    background-color: darkslategrey;
+}
+
+div#container {
+    height : 1200px;
+}

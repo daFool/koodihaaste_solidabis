@@ -17,8 +17,7 @@ class cnode extends controller {
          */
         $nodebase = [];
         foreach($nodes as $id=>$label) {
-            $id++;
-            $nodebase[]=[ self::ID=>$this->map[$id], self::LABEL =>$label[edges::NODE] ];
+            $nodebase[]=[ self::ID=>$this->map[$label[edges::NODE]], self::LABEL =>$label[edges::NODE] ];
         }
         $this->json($nodebase);
 
