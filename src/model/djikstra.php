@@ -16,7 +16,6 @@ class djikstra {
     public const TRAVELED="traveled";
     public const SAMEMETHOD="ihmetellen";
 
-    use \mosBase\Util;
     use \mosBase\Pgsql;
 
     public function __construct(\mosBase\Database $db, \mosBase\Log $log) {
