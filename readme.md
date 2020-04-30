@@ -59,4 +59,33 @@ Alias /koodihaaste/back /web/koodihaaste_solidabis/src/backend
         Require all granted
 </Directory>
 
+Backend käyttää Fat Free Corea, joka pitää hakea composerilla:
+[mos@coredump src]$ composer update
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Package operations: 1 install, 0 updates, 0 removals
+  - Installing bcosca/fatfree-core (3.7.1): Downloading (100%)  
+
+Tämän jälkeen pitää vielä korjata .htaccess-tiedosto hakemistossa src/backend ja src/front tiedostojen polut. Tämä käy vaikka sed-komennolla, jotenkin tähän malliin:
+for i in backend/.htaccess frontend/.htaccess; do sed -s -i 's/\/home\/mos\/Projektit\/Koodihaaste/\/web\/koodihaaste_solidabis/g' $i;done
+
+Komennossa \/web-alkava osuus on polku josta projekti löytyy.
+
+Jos kaikki meni hyvin, niin surffaamalla asennusosoitteessa backendiin, vaikka seuraavasti:
+https://www.generalfailure.net/koodihaaste/back/nodes
+
+pitäisi vastauksen olla json:
+[{"id":1,"label":"A"},{"id":2,"label":"B"},{"id":3,"label":"C"},{"id":4,"label":"D"},{"id":5,"label":"E"},{"id":6,"label":"F"},{"id":7,"label":"G"},{"id":8,"label":"H"},{"id":9,"label":"I"},{"id":10,"label":"J"},{"id":11,"label":"K"},{"id":12,"label":"L"},{"id":13,"label":"M"},{"id":14,"label":"N"},{"id":15,"label":"O"},{"id":16,"label":"P"},{"id":17,"label":"Q"},{"id":18,"label":"R"}]
+
+osoitteesta https://www.generalfailure.net/koodihaaste/back/edges löytyvät "kaaret" ja reititystä voi kysellä vaikka:
+https://www.generalfailure.net/koodihaaste/back/djikstra?from=E&to=M
+
+
+## Frontti
+Frontti vaatii yhden on-linerin lisää hakeistossa front:
+find . -type f -exec sed -i -s 's/http:\/\/localhost\/koodihaaste\/back/https:\/\/generalfailure.net\/koodihaaste\/back/g' {} \;
+jälleen sed:in jälkimmäinen osa on se mitä pitää muuttaa. Osaan tulee web-palvelimen osoite, johon sovellus on asennettu.
+Tämän jälkeen käyttöliittymän pitäisi löytyä osoitteesta:
+https://generalfailure.net/koodihaaste/ui/
+
 
