@@ -1,0 +1,13 @@
+SetEnv mosBase /home/mos/Projektit/Koodihaaste/mosBase
+SetEnv koodihaaste /home/mos/Projektit/Koodihaaste
+SetEnv koodihaasteIni /home/mos/Projektit/Koodihaaste/koodihaaste.ini
+
+RewriteEngine On
+RewriteBase /koodihaaste/ui/
+RewriteRule ^(app|dict|ns|tmp)\/|\.ini$ - [R=404]
+
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L,QSA]
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]

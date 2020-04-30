@@ -34,6 +34,29 @@ Luodaan kantaan taulut:
 Asetetaan ympäristömuuttujat php-skriptejä varten:
 source local.sh
 cd src
+php initializeDatabase.php ../haaste/reittiopas.json
 
- 
+Näiden temppujen jälkeen komentorivityökalun pitäisi toimia ja reitittää oikein. Esimerkiksi:
+[mos@coredump src]$ ./routeIt.php A O
+A->C with vihreä for 1/1 
+C->E with vihreä for 2/3 
+E->M with sininen for 10/13 
+M->N with sininen for 2/15 
+N->O with sininen for 2/17 
+
+### Web-backend
+Apachelle pitää kertoa mistä front- ja backendit löytyvät. Riippuen tietysti apachen versiosta tai siitä käyttääkö ollenkaan apachea, niin jotakin tämmöistä voisi päätyä /etc/httpd/conf.d - hakemiston sopivaan tiedostoon:
+Alias /koodihaaste/ui   /web/koodihaaste_solidabis/src/frontend
+Alias /koodihaaste/back /web/koodihaaste_solidabis/src/backend
+
+<Directory "/web/koodihaaste_solidabis/src/frontend">
+        AllowOverride all
+        Require all granted
+</Directory>
+
+<Directory "/web/koodihaaste_solidabis/src/backend">
+        AllowOverride all
+        Require all granted
+</Directory>
+
 
