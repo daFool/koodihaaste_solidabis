@@ -72,13 +72,13 @@ for i in backend/.htaccess frontend/.htaccess; do sed -s -i 's/\/home\/mos\/Proj
 Komennossa \/web-alkava osuus on polku josta projekti löytyy.
 
 Jos kaikki meni hyvin, niin surffaamalla asennusosoitteessa backendiin, vaikka seuraavasti:
-https://www.generalfailure.net/koodihaaste/back/nodes
+https://generalfailure.net/koodihaaste/back/nodes
 
 pitäisi vastauksen olla json:
 [{"id":1,"label":"A"},{"id":2,"label":"B"},{"id":3,"label":"C"},{"id":4,"label":"D"},{"id":5,"label":"E"},{"id":6,"label":"F"},{"id":7,"label":"G"},{"id":8,"label":"H"},{"id":9,"label":"I"},{"id":10,"label":"J"},{"id":11,"label":"K"},{"id":12,"label":"L"},{"id":13,"label":"M"},{"id":14,"label":"N"},{"id":15,"label":"O"},{"id":16,"label":"P"},{"id":17,"label":"Q"},{"id":18,"label":"R"}]
 
-osoitteesta https://www.generalfailure.net/koodihaaste/back/edges löytyvät "kaaret" ja reititystä voi kysellä vaikka:
-https://www.generalfailure.net/koodihaaste/back/djikstra?from=E&to=M
+osoitteesta https://generalfailure.net/koodihaaste/back/edges löytyvät "kaaret" ja reititystä voi kysellä vaikka:
+https://generalfailure.net/koodihaaste/back/djikstra?from=E&to=M
 
 
 ## Frontti
