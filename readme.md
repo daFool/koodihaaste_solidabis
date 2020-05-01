@@ -41,36 +41,36 @@ Ladataan "kartta" tietokantaan:
 
 Näiden temppujen jälkeen ratkaisun komentorivityökalun pitäisi toimia ja sillä voi kysellä reittejä. Esimerkiksi:
 
->[mos@coredump src]$ ./routeIt.php A O
->A->C with vihreä for 1/1 
->C->E with vihreä for 2/3 
->E->M with sininen for 10/13 
->M->N with sininen for 2/15 
->N->O with sininen for 2/17 
+[mos@coredump src]$ `./routeIt.php A O`
+  A->C with vihreä for 1/1 
+  C->E with vihreä for 2/3 
+  E->M with sininen for 10/13 
+  M->N with sininen for 2/15 
+  N->O with sininen for 2/17 
 
 ### Web-backend
 Apachelle pitää kertoa mistä front- ja backendit löytyvät. Riippuen tietysti apachen versiosta tai siitä käyttääkö ollenkaan apachea, niin jotakin tämmöistä voisi päätyä /etc/httpd/conf.d - hakemistossa sopivaan tiedostoon:
 
->Alias /koodihaaste/ui   /web/koodihaaste_solidabis/src/frontend
->Alias /koodihaaste/back /web/koodihaaste_solidabis/src/backend
+    Alias /koodihaaste/ui   /web/koodihaaste_solidabis/src/frontend
+    Alias /koodihaaste/back /web/koodihaaste_solidabis/src/backend
 
-><Directory "/web/koodihaaste_solidabis/src/frontend">
->        AllowOverride all
->        Require all granted
-></Directory>
+    <Directory "/web/koodihaaste_solidabis/src/frontend">
+            AllowOverride all
+            Require all granted
+    </Directory>
 
-><Directory "/web/koodihaaste_solidabis/src/backend">
->        AllowOverride all
->        Require all granted
-></Directory>
+    <Directory "/web/koodihaaste_solidabis/src/backend">
+            AllowOverride all
+            Require all granted
+    </Directory>
 
 Backend käyttää Fat Free Corea, joka pitää hakea composerilla:
-[
+
     mos@coredump src]$ `composer update`
->Loading composer repositories with package information
->Updating dependencies (including require-dev)
->Package operations: 1 install, 0 updates, 0 removals
->  - Installing bcosca/fatfree-core (3.7.1): Downloading (100%)  
+    Loading composer repositories with package information
+    Updating dependencies (including require-dev)
+    Package operations: 1 install, 0 updates, 0 removals
+    - Installing bcosca/fatfree-core (3.7.1): Downloading (100%)  
 
 Tämän jälkeen pitää vielä korjata .htaccess-tiedosto hakemistossa src/backend ja src/front tiedostojen polut. Tämä käy vaikka sed-komennolla, jotenkin tähän malliin:
 
@@ -79,7 +79,7 @@ Tämän jälkeen pitää vielä korjata .htaccess-tiedosto hakemistossa src/back
 Komennossa \/web-alkava osuus on polku josta projekti löytyy.
 
 Jos kaikki meni hyvin, niin surffaamalla asennusosoitteessa backendiin, vaikka seuraavasti:
->https://generalfailure.net/koodihaaste/back/nodes
+    https://generalfailure.net/koodihaaste/back/nodes
 
 pitäisi vastauksen olla json:
 
@@ -100,4 +100,10 @@ Tämän jälkeen käyttöliittymän pitäisi löytyä osoitteesta:
 
 https://generalfailure.net/koodihaaste/ui/
 
+
+## Saako minulle tarjota töitä tai minua ostaa?
+Jos olet massikeisari tai joku muu queen of fuck*ing everything ja haluat minut kokoelmiisi, niin tee toki tarjous, josta
+en voi kieltäytyä. Olen kokopäiväisesti töissä itc-alalla, mutta mikään Ronaldo en ole. Fuula-sedän löydät osoitteesta mailto:fuula@generalfailure.net
+
+Minua voi myös ostaa kappale- tai kilotavarana. Rohkeasti vaan sähköpostia, niin siirrän sinut juttelemaan työnantajani myynnin kanssa, joka lopulta päättää paljonko Fuula-setää saa sillä määrällä loottia, mikä sinulla on käytettävissäsi.
 
