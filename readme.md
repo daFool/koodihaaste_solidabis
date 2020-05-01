@@ -42,6 +42,7 @@ Ladataan "kartta" tietokantaan:
 Näiden temppujen jälkeen ratkaisun komentorivityökalun pitäisi toimia ja sillä voi kysellä reittejä. Esimerkiksi:
 
 [mos@coredump src]$ `./routeIt.php A O`
+
     A->C with vihreä for 1/1 
     C->E with vihreä for 2/3 
     E->M with sininen for 10/13 
@@ -102,8 +103,8 @@ https://generalfailure.net/koodihaaste/ui/
 
 
 ## Saako minulle tarjota töitä tai minua ostaa?
-Jos olet massikeisari tai joku muu queen of fuck*ing everything ja haluat minut kokoelmiisi, niin tee toki tarjous, josta
-en voi kieltäytyä. Olen kokopäiväisesti töissä itc-alalla, mutta mikään [Ronaldo](https://www.is.fi/eurosarjat/art-2000005260020.html) en ole. Fuula-sedän löydät osoitteesta fuula@generalfailure.net
+Jos olet _massikeisari_ tai joku muu _queen of fuc*ing everything_ ja haluat minut kokoelmiisi, niin tee toki tarjous, josta
+en voi kieltäytyä. Olen kokopäiväisesti töissä itc-alalla, mutta mikään [Ronaldo](https://www.is.fi/eurosarjat/art-2000005260020.html) tai sankarikoodari en ole. Fuula-sedän tavoitat mm osoitteesta fuula@generalfailure.net
 
-Minua voi myös ostaa kappale- tai kilotavarana. Rohkeasti vaan sähköpostia, niin siirrän sinut juttelemaan työnantajani myynnin kanssa, joka lopulta päättää paljonko Fuula-setää saa sillä määrällä loottia, mikä sinulla on käytettävissäsi.
+Minua voi myös ostaa kappale- tai kilotavarana. Rohkeasti vaan sähköpostia, niin siirrän sinut juttelemaan nykyisen työnantajani myynnin kanssa, joka lopulta päättää paljonko Fuula-setää saa sillä määrällä kultaa, mikä sinulla on käytettävissäsi.
 
