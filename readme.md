@@ -18,9 +18,9 @@ Asennuksessa oletetaan, että asentajalla on jokin linux-ympäristö käytettäv
 
 Asennus kannattaa aloittaa hakemalla koko repository johonkin paikkaan kohdekoneella, johon web-palvelimelle voidaan antaa hakemistohierarkiaan kulku- ja lukuoikeus. Käytännössä kaikkiin muihin hakemistoihin kuin sql-alihakemistoihin on tarve päästä. Tämä siis tarkoittaa web-palvelimen käyttäjän luku- ja pääsyoikeuksia hakemistoihin. Webin kautta pääsyn voi rajata hakemistoihin: src/frontend ja src/backend. 
 
-`git clone https://github.com/daFool/koodihaaste_solidabis.git`
-`cd koodihaaste_solidabis`
-`git clone https://github.com/daFool/mosBase.git`
+    git clone https://github.com/daFool/koodihaaste_solidabis.git
+    cd koodihaaste_solidabis`
+    git clone https://github.com/daFool/mosBase.git`
 
 Luodaan ratkaisun tarvitsema kanta:
 
@@ -32,8 +32,8 @@ Luodaan kantaan taulut ja ladataan funktiot:
 
 Asetetaan ympäristömuuttujat php-skriptejä varten:
 
-`source local.sh`
-`cd src`
+    source local.sh
+    cd src
 
 Ladataan "kartta" tietokantaan:
 
@@ -42,11 +42,11 @@ Ladataan "kartta" tietokantaan:
 Näiden temppujen jälkeen ratkaisun komentorivityökalun pitäisi toimia ja sillä voi kysellä reittejä. Esimerkiksi:
 
 [mos@coredump src]$ `./routeIt.php A O`
-  A->C with vihreä for 1/1 
-  C->E with vihreä for 2/3 
-  E->M with sininen for 10/13 
-  M->N with sininen for 2/15 
-  N->O with sininen for 2/17 
+    A->C with vihreä for 1/1 
+    C->E with vihreä for 2/3 
+    E->M with sininen for 10/13 
+    M->N with sininen for 2/15 
+    N->O with sininen for 2/17 
 
 ### Web-backend
 Apachelle pitää kertoa mistä front- ja backendit löytyvät. Riippuen tietysti apachen versiosta tai siitä käyttääkö ollenkaan apachea, niin jotakin tämmöistä voisi päätyä /etc/httpd/conf.d - hakemistossa sopivaan tiedostoon:
@@ -103,7 +103,7 @@ https://generalfailure.net/koodihaaste/ui/
 
 ## Saako minulle tarjota töitä tai minua ostaa?
 Jos olet massikeisari tai joku muu queen of fuck*ing everything ja haluat minut kokoelmiisi, niin tee toki tarjous, josta
-en voi kieltäytyä. Olen kokopäiväisesti töissä itc-alalla, mutta mikään Ronaldo en ole. Fuula-sedän löydät osoitteesta mailto:fuula@generalfailure.net
+en voi kieltäytyä. Olen kokopäiväisesti töissä itc-alalla, mutta mikään [Ronaldo](https://www.is.fi/eurosarjat/art-2000005260020.html) en ole. Fuula-sedän löydät osoitteesta fuula@generalfailure.net
 
 Minua voi myös ostaa kappale- tai kilotavarana. Rohkeasti vaan sähköpostia, niin siirrän sinut juttelemaan työnantajani myynnin kanssa, joka lopulta päättää paljonko Fuula-setää saa sillä määrällä loottia, mikä sinulla on käytettävissäsi.
 
