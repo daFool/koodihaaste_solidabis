@@ -17,13 +17,14 @@
 <script type="text/javascript">
     // create an array with nodes
     var nodes = new vis.DataSet([
-        {id: 1, label: 'Node 1', color: 'red'},
-        {id: 2, label: 'Node 2'},
-        {id: 3, label: 'Node 3'},
-        {id: 4, label: 'Node 4'},
-        {id: 5, label: 'Node 5'}
+        {id: 1, label: 'A'},
+        {id: 2, label: 'B'},
+        {id: 3, label: 'C'},
+        {id: 4, label: 'D'},
+        {id: 5, label: 'E'}
     ]);
-    var nodes2 = new vis.DataSet([{"id":1,"label":"A"},{"id":2,"label":"B"},{"id":3,"label":"C"},{"id":4,"label":"D"},{"id":5,"label":"E"},{"id":6,"label":"F"},{"id":7,"label":"G"},{"id":8,"label":"H"},{"id":9,"label":"I"},{"id":10,"label":"J"},{"id":11,"label":"K"},{"id":12,"label":"L"},{"id":13,"label":"M"},{"id":14,"label":"N"},{"id":15,"label":"O"},{"id":16,"label":"P"},{"id":17,"label":"Q"},{"id":18,"label":"R"}]);
+    var nodes2 = new vis.DataSet([
+        {"id":1,"label":"A"},{"id":2,"label":"B"},{"id":3,"label":"C",},{"id":4,"label":"D"},{"id":5,"label":"E"},{"id":6,"label":"F"},{"id":7,"label":"G"},{"id":8,"label":"H"},{"id":9,"label":"I"},{"id":10,"label":"J"},{"id":11,"label":"K"},{"id":12,"label":"L"},{"id":13,"label":"M"},{"id":14,"label":"N"},{"id":15,"label":"O"},{"id":16,"label":"P"},{"id":17,"label":"Q"},{"id":18,"label":"R"}]);
     // create an array with edges
     var edges = new vis.DataSet([
         {from: 1, to: 3, color: 'green', label: '5'},
@@ -40,7 +41,19 @@
         nodes: nodes2,
         edges: edges2
     };
-    var options = {};
+    var options = {
+        physics: {
+            enabled : false
+        },
+        layout: {
+            hierarchical : {
+                enabled : true, 
+                direction : 'LR',
+                levelSeparation : 50,
+                nodeSpacing : 350
+            }
+        }
+    };
 
     // initialize your network!
     var network = new vis.Network(container, data, options);

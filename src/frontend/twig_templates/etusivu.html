@@ -1,0 +1,73 @@
+{% extends "page.html" %}
+
+{% block head %}
+    {{ parent() }}
+    <title>{{ tSovellus }}</title>
+{% endblock %}
+
+{% block nav %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+      <!-- Heading Row -->
+      <div class="row align-items-center my-5">
+        <div class="col-lg-7 bg-secondary" id="reittikartta">
+          <img class="img-fluid" rounded mb-4 mb-lg-0" src="https://via.placeholder.com/{{ xsize }}x{{ ysize}} " alt="">
+        </div>
+        <!-- /.col-lg-8 -->
+        <div class="col-lg-5">
+            <div class="alert alert-primary" role="alert" id="nottiisi"> 
+                {{ tLadataan }}
+              </div>
+            
+            <form method="GET" action="#" name="reititys">
+                <div class="form-group">
+                    <label for="from">{{ tPysakilta}}</label>
+                    <input type="text" pattern="{{ cPattern }}" class="form-control" id="from" aria-describedby="fromHelp" placeholder="M">
+                    <small id="fromHelp" class="form-text text-muted">{{ tLahtopysakkiohje }}</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="to">{{ tPysakille }}</label>
+                    <input type="text" pattern="{{ cPattern }}" class="form-control" id="to" placeholder="P" aria-describedby="toHelp">
+                    <small id="toHelp" class="form-text text-muted">{{ tKohdepysakkiohje }}</small>
+                  </div>
+                  <button type="submit" class="btn btn-primary">{{ tReitita }}</button>
+            </form>
+        </div>
+        <!-- /.col-md-4 -->
+    </div>
+    <!-- /.row -->
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">{{ tReittiohje }}</h2>
+                    <p class="card-text" id="tulosreitti"></p>
+                </div>
+                <div class="card-footer" id="tulosreittif"></div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-8 mb-10">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">{{ tKartta }}</h2>
+                    <div id="tuloskartta"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+{% endblock %}

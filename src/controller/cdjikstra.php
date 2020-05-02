@@ -33,28 +33,46 @@ class cdjikstra extends controller {
                 $edges=$this->addEdge($step[djikstra::FROM], $step[djikstra::TO], $color, $step[djikstra::FOR], $edges);
             }
             $steps[$i]=$step;
-            $c = $this->color($route, $i+1, $step[djikstra::WITH]);    
+            $c = $this->color($route, $i, $step[djikstra::WITH]); 
+            if(is_null($c) || empty($c)) {
+                var_dump($c);
+                die;
+            }   
             $steps[$i][djikstra::WITH]=$c;
         }
         $res = [ TRUE, $nodes, $edges, $steps ];
         $this->json($res);
     }
+
     private function color(array $route, int $i, array $curset) {
-        if($i==count($route)) {
-            reset($curset);
-            return $curset[key($curset)];            
+        $oset=$curset;
+        for($i++;$i<count($route);$i++) {
+            if(is_null($curset) || empty($curset)) {
+  //              echo "<br>Escape with empty curset<br>";
+                return $i ? $route[$i-1][djikstra::WITH] : $route[$i][djikstra::WITH];
+            }
+            $a = array_intersect($curset, $route[$i][djikstra::WITH]);
+            if (empty($a) || is_null($a)) {
+  //              echo "<br>Escape with empty intersection<br>";
+                reset($curset);
+                return $curset[key($curset)];            
+            }
+            if(count($a)==1) {
+ /*               echo "<br>Escape with A<br>";
+                reset($a);
+                var_dump(key($a));
+                var_dump($a[key($a)]);
+                echo "<br>Escape with A<br>"; */
+                $c = $a[key($a)];
+                // var_dump($c);
+                return $c;
+            }
+            $curset=$a;
         }
-        $a = array_intersect($curset, $route[$i][djikstra::WITH]);
-        if (empty($a) || is_null($a)) {
-            reset($curset);
-            return $curset[key($curset)];            
-        }
-        if(count($a)==1) {
-            reset($a);
-            return $a[key($a)];
-        }
-        $this->color($route, $i+1, $a);
+        reset($oset);
+        return $oset[key($oset)];
     }
+    
     private function hasNode(string $letter, array $nodes) : bool {
         if(empty($nodes)) {
             return FALSE;

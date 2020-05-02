@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fi">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta name="Author" content="Mauri Sahlberg, fuula@generalfailure.net">
+        
+        {% block head %}
+            {{ include ("styles.html") }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block nav %}
+            {{ include ("navigation.html") }}
+        {% endblock %}
+
+        <div class="container">
+        {% block content %}
+        {% endblock %}
+        </div>
+
+        {% block footer %}
+            {{ include ("footer.html") }}
+        {% endblock %}
+
+        {% block script %}
+            {{ include ("scripts.html") }}
+        {%endblock %}
+    </body>
+</html>

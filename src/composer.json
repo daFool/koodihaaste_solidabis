@@ -3,6 +3,7 @@
 		"vendor-dir": "vendor"
 	},
 	"require": {
-		"bcosca/fatfree-core": "^3.7"
+		"bcosca/fatfree-core": "^3.7",
+		"twig/twig": "^3.0"
 	}
 }

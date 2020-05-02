@@ -4,17 +4,17 @@
 * Postgresql-tietokanta, todennäköisesti mikä tahansa versio 9.5 version jälkeen käy, kunhan siinä on plpgsql-tuki. 9.5 on ensimmäinen Postgresql-versio, josta löytyy to_json()-funktio. Ratkaisu on kehitetty koneessa, jossa on versio 11.0 
 * Jokin linux-kone, kehitysalustana oli Fedora release 31 (Thirty One)
 * 7-sarjan PHP, kehityskoneen versio: 7.3.17 (kehityskoneen php:n pakettiluettelo löytyy tiedostosta php_rpms.txt)
-* Composer, php-riippuvuuksien ylläpitoon, composerilla on haettu Fat Free Core
+* Composer, php-riippuvuuksien ylläpitoon, composerilla on haettu Fat Free Core ja Twig-templating engine
 * Jokin web-palvelin, kehitysalustassa on käytetty Apachea versiolla 2.4.43
 * Käyttöliittymä on toteutettu ecma-scriptillä, jqueryllä, jquery-ui:llä, bootstrapilla ja vis.js:llä. Kaikki ladataan lennossa CDN:stä. Kehitys on tehty chrome-selaimen versiolla: Versio 81.0.4044.122 (Virallinen koontiversio) (64-bittinen)
 * Ratkaisussa käytetään osaa toisesta php-projektistani, joka löytyy githubista https://github.com/daFool/mosBase
 
 ## Ratkaisun arkkitehtuuri
-Ratkaisu perustuu Djikstran hakualgoritmiin. Hakualgoritmi on kuvattu wikipediassa: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Pseudocode .
+Ratkaisu perustuu Dijkstran hakualgoritmiin. Hakualgoritmi on kuvattu wikipediassa: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Pseudocode . Luin ensin nimen väärin ja typo näkyy kaikkialle koodissa läpi ratkaisun.
 Varsinaisen laskenta tapahtuu tietokannassa funktioilla aputauluja käyttäen. Itse web-ratkaisu on hajautettu kahteen palaseen: backendiin ja käyttöliittymään. Backend on löyhästi REST-määritelmän toteuttava API, jota käyttöliittymän javascript-kutsuu ajaxilla. Toteutuksessa on sovellettu MVC-arkkitehtuuria. Teoriassa kaikki kolme palikkaa voidaan asentaa vaikka omiin kontteihinsa ja kutakin konttia ajaa useampia rinnakkain. Backend kutsuu kantaa aina yhtenä atomisena kutsuna, joten ei ole väliksi vaikka eri kutsujen välissä vastaisi toinen instanssi kantaa. Frontend:in ja Backendin välinen kommunikaatio on myös tilatonta, joten ei ole väliä mitä backendiä mikäkin frontend kutsuisi.
 
 ## Asentaminen
-Asennuksessa oletetaan, että asentajalla on jokin linux-ympäristö käytettävissään, josta löytyvät asennettuina php, postgresql ja apache. Asennusohje on testattu koneessa, jossa on: CentOS Linux release 7.6.1810 (Core), PHP 7.1.27 (cli) (built: Mar 10 2019 16:23:55) ( NTS ), psql (PostgreSQL) 12.2 ja Apache 2.4.6. Asennusohjeissa ei opasteta web-palvelimen, tai postgresql:n konfigurointia, puhumattakaan palomuurin- tai selinuxin-konfiguroinnista. 
+Asennuksessa oletetaan, että asentajalla on jokin linux-ympäristö käytettävissään, josta löytyvät asennettuina php, postgresql ja apache. Asennusohje on testattu koneessa, jossa on: CentOS Linux release 7.6.1810 (Core), PHP 7.1.27 (cli) (built: Mar 10 2019 16:23:55) ( NTS ), psql (PostgreSQL) 12.2 ja Apache 2.4.6. Asennusohjeissa ei opasteta web-palvelimen, tai postgresql:n konfigurointia, puhumattakaan palomuurin- tai selinuxin-konfiguroinnista. (Tiedän, että PHP-version 7.1 tuki on loppun 2019-12-01ja se pitäisi päivittää.)
 
 Asennus kannattaa aloittaa hakemalla koko repository johonkin paikkaan kohdekoneella, johon web-palvelimelle voidaan antaa hakemistohierarkiaan kulku- ja lukuoikeus. Käytännössä kaikkiin muihin hakemistoihin kuin sql-alihakemistoihin on tarve päästä. Tämä siis tarkoittaa web-palvelimen käyttäjän luku- ja pääsyoikeuksia hakemistoihin. Webin kautta pääsyn voi rajata hakemistoihin: src/frontend ja src/backend. 
 
@@ -65,7 +65,7 @@ Apachelle pitää kertoa mistä front- ja backendit löytyvät. Riippuen tietyst
             Require all granted
     </Directory>
 
-Backend käyttää Fat Free Corea, joka pitää hakea composerilla:
+Backend käyttää Fat Free Corea ja Twigiä, jotka pitää hakea composerilla:
 
     mos@coredump src]$ `composer update`
     Loading composer repositories with package information
@@ -73,11 +73,9 @@ Backend käyttää Fat Free Corea, joka pitää hakea composerilla:
     Package operations: 1 install, 0 updates, 0 removals
     - Installing bcosca/fatfree-core (3.7.1): Downloading (100%)  
 
-Tämän jälkeen pitää vielä korjata .htaccess-tiedosto hakemistossa src/backend ja src/front tiedostojen polut. Tämä käy vaikka sed-komennolla, jotenkin tähän malliin:
+Tämän jälkeen pitää vielä korjata .htaccess-tiedosto hakemistossa src/backend ja src/front tiedostojen polut. Tämä projektin päätason komennolla
 
-`for i in backend/.htaccess frontend/.htaccess; do sed -s -i 's/\/home\/mos\/Projektit\/Koodihaaste/\/web\/koodihaaste_solidabis/g' $i;done`
-
-Komennossa \/web-alkava osuus on polku josta projekti löytyy.
+`./fixhtaccess.sh`
 
 Jos kaikki meni hyvin, niin surffaamalla asennusosoitteessa backendiin, vaikka seuraavasti:
     https://generalfailure.net/koodihaaste/back/nodes
@@ -92,11 +90,17 @@ https://generalfailure.net/koodihaaste/back/djikstra?from=E&to=M
 
 
 ## Frontti
-Frontti vaatii yhden on-linerin lisää hakeistossa front:
+Fronttia varten pitää kertoa mistä backend-löytyy. Tämä tehdään muuttamalla src-hakemistosta löytyvää koodihaaste.ini-tiedostoa:
+   
+    [General]
+    TZ = "Europe/Helsinki"
+    vendor= ${koodihaaste}"/src/vendor/autoload.php"
+    basePath = ${koodihaaste}"/src"
+    baseUrl = "https://generalfailure.net/koodihaaste/ui"
+    backEndUrl = "https://generalfailure.net/koodihaaste/back"
 
-`find . -type f -exec sed -i -s 's/http:\/\/localhost\/koodihaaste\/back/https:\/\/generalfailure.net\/koodihaaste\/back/g' {} \;`
+*baseUrl*:iin tulee käyttöliittymän web-osoite ja *backEndUrl*:iin backendin web-osoite.
 
-jälleen sed:in jälkimmäinen osa on se mitä pitää muuttaa. Osaan tulee web-palvelimen osoite, johon sovellus on asennettu.
 Tämän jälkeen käyttöliittymän pitäisi löytyä osoitteesta:
 
 https://generalfailure.net/koodihaaste/ui/
