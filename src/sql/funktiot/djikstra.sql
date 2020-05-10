@@ -11,7 +11,7 @@ create function djikstra(startBusStop varchar(1), endBusStop varchar(1)) returns
         select initQset(startBusStop) into id;
         select * into u from qset where run=id and vertex=startBusStop;
         WHILE FOUND LOOP
-            update qset set visited=true where vertex=u.vertex and run=id;
+            update qset set visited=true, muokattu=now() where vertex=u.vertex and run=id;
             IF u.vertex=endBusStop THEN
                 return id;
             END IF;
@@ -19,7 +19,7 @@ create function djikstra(startBusStop varchar(1), endBusStop varchar(1)) returns
                 alt:=u.dist + v.cost;
                 IF v.dist is null or v.dist>alt then
                     linja:=v.line;
-                    update qset set dist=alt, prev=u.vertex, line=linja where run=id and vertex=v.node;
+                    update qset set dist=alt, prev=u.vertex, line=linja, muokattu=now(), jrnro=nextval(''visits'') where run=id and vertex=v.node;
                 END IF;
             END LOOP;
             select * into u from qset where run=id and dist is not null and visited=false order by dist asc limit 1;

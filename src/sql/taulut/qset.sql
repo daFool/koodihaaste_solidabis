@@ -9,6 +9,7 @@ create table qset (
     visited boolean,
     line    varchar(10)[],
     run     int,
+    jrnro   bigint,
 
     primary key (vertex, run),
     like Pohjat INCLUDING ALL
@@ -21,4 +22,5 @@ comment on column qset.prev is 'Noden edeltäjä etsittävällä polulla, Djikst
 comment on column qset.visited is 'Onko node käsitelty loppuun?';
 comment on column qset.line is 'Linjat, joilla tänne tultiin';
 comment on column qset.run is 'Ajo, jolle tämä qset-kuuluu';
+comment on column qset.jrnro is 'Käsittelyjärjestys';
 

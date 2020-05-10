@@ -3,6 +3,10 @@ Ratkaisua kuvataan tarkemmin video-sarjassani Fuula-sedän IT-Sirkus, Solidabis 
 nyt katsottavissa YouTubessa: https://www.youtube.com/watch?v=2dcJS_M0PFY . Sarjan edetessä myös tämän repositoryn sisältö muuttuu ja suurella todennäköisyydellä jatkaa sarjan valmistumisen jälkeen muuttumista. Projektille on todennäköisesti käyttöä tulevien IT-Sirkuksen jaksojen tekemisessä. 
 
 Samoin osoitteesta: https://generalfailure.net/koodihaaste/ui/ löytyvä malliratkaisu muuttuu sarjan edetessä.
+## Ratkaisua selittävät videot
+1. Tehtäväksianto: https://www.youtube.com/watch?v=2dcJS_M0PFY 
+2. Tietokanta: https://www.youtube.com/watch?v=nN9K3Q_-d8g
+3. Tietokantasuunnittelu: https://www.youtube.com/watch?v=-cAGeVjK37k&feature=youtu.be
 
 ## Käytetyt teknologiat
 * Postgresql-tietokanta, todennäköisesti mikä tahansa versio, 9.5 version jälkeen käy, kunhan siinä on plpgsql-tuki. 9.5 on ensimmäinen Postgresql-versio, josta löytyy to_json()-funktio. Ratkaisu on kehitetty koneessa, jossa on asennettuna Postgresql versio 11.0. 
@@ -12,7 +16,7 @@ Samoin osoitteesta: https://generalfailure.net/koodihaaste/ui/ löytyvä mallira
 * Jokin web-palvelin, kehitysalustassa on käytetty Apachea versiolla 2.4.43
 * Käyttöliittymä on toteutettu ecma-scriptillä, jqueryllä, jquery-ui:llä, bootstrapilla ja vis.js:llä. Kaikki ulkoiset javascript-kirjastot ladataan lennossa CDN:stä. 
 * Bootstrap-templatena on käytetty ilmaista Start Bootstrapin Small Business-templatea.
-* Kehitys on tehty chrome-selaimen versiolla: Versio 81.0.4044.122 (Virallinen koontiversio) (64-bittinen)
+* Kehitys on tehty Chrome-selaimen versiolla: Versio 81.0.4044.122 (Virallinen koontiversio) (64-bittinen)
 * Ratkaisussa käytetään osaa toisesta php-projektistani, joka löytyy GitHubista: https://github.com/daFool/mosBase
 
 ## Ratkaisun arkkitehtuuri
