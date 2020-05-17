@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Koodihaaste" default="full-build">
+    <target name="full-build"
+        depends="database"
+        description="Analysoi, ajelee testejä, generoi dokumentaation ja rakentaa koko ratkaisun"/>
+
+    <target name="database"
+            depends="createDatabase,loadSql,initDatabase,database-docs"
+            description="Rakentaa ja lataa tietokannen, generoi dokumentaation"/>
+
+    <target name="createDatabase"
+            unless="databaseCreated"
+            description="Luo tietokannan käyttäjineen">
+        <exec executable="./createDatabase.sh" taskname="createDatabase" failonerror="true"/>
+        <property name="databaseCreated" value="true"/>
+    </target>
+
+    <target name="loadSql"
+            unless="SqlLoaded"
+            description="Luo taulut ja lataa sql-funktiot">
+        <exec executable="./loadsql.sh" taskname="loadSQL" failonerror="true"/>
+        <property name="SqlLoaded" value="true"/>
+    </target>
+
+    <target name="initDatabase"
+            unless="DatabaseInitialized"
+            depends="loadSql"
+            description="Lataa koodihaasteen kartan kantaan">
+        <exec executable="./loadMap.sh" taskname="initDatabase" failonerror="true"/>
+        <property name="DatabaseInitialized" value="true"/>
+    </target>
+
+    <target name="database-docs"
+            unless="database-docs.done"
+            description="Luo robodocilla kantadokumentaation docs-alihakemistoon">
+        <exec executable="./generateDatabaseDocs.sh" taskname="database-docs" failonerror="true"/>
+        <property name="database-docs.done" value="true"/>
+    </target>
+
+    <target name="clean"
+            unless="clean.done"
+            description="Siivotaan projekti">
+        <delete dir="${basedir}/doc/database"/>
+        <property name="clean.done" value="true"/>
+    </target>
+
+    <target name="mrproper"
+            unless="putsplank"
+            description="Siivoaa ihan kaiken"
+            depends="clean">
+        <exec executable="dropdb" failonerror="true">
+            <arg value="koodihaaste"/>
+        </exec> 
+        <exec executable="dropuser" failonerror="true">
+            <arg value="koodihaaste"/>
+        </exec>
+        <property name="putsplank" value="true"/>
+    </target>
+
+</project>
+
