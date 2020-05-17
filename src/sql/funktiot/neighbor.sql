@@ -12,7 +12,7 @@ create function neighbor(u varchar(1), id int) returns setof record as '
                 e.line,
                 v.dist
             from
-                (select vertex, dist from qset where run=id and visited=false) as v
+                (select vertex, dist from qset where run=id and visited=false and not vertex=u) as v
             join
                 (select * from edges where src=u or dst=u) as e
             on (e.src=v.vertex or e.dst=v.vertex)
