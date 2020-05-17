@@ -7,6 +7,7 @@ Samoin osoitteesta: https://generalfailure.net/koodihaaste/ui/ löytyvä mallira
 1. Tehtäväksianto: https://www.youtube.com/watch?v=2dcJS_M0PFY 
 2. Tietokanta: https://www.youtube.com/watch?v=nN9K3Q_-d8g
 3. Tietokantasuunnittelu: https://www.youtube.com/watch?v=-cAGeVjK37k&feature=youtu.be
+4. Dijkstran algoritmi: https://www.youtube.com/watch?v=Y-yMupnW4cc&feature=youtu.be
 
 ## Käytetyt teknologiat
 * Postgresql-tietokanta, todennäköisesti mikä tahansa versio, 9.5 version jälkeen käy, kunhan siinä on plpgsql-tuki. 9.5 on ensimmäinen Postgresql-versio, josta löytyy to_json()-funktio. Ratkaisu on kehitetty koneessa, jossa on asennettuna Postgresql versio 11.0. 
@@ -18,6 +19,8 @@ Samoin osoitteesta: https://generalfailure.net/koodihaaste/ui/ löytyvä mallira
 * Bootstrap-templatena on käytetty ilmaista Start Bootstrapin Small Business-templatea.
 * Kehitys on tehty Chrome-selaimen versiolla: Versio 81.0.4044.122 (Virallinen koontiversio) (64-bittinen)
 * Ratkaisussa käytetään osaa toisesta php-projektistani, joka löytyy GitHubista: https://github.com/daFool/mosBase
+* Ant - java-kavereiden lahja Makefileä pelkääville ja xml-sulkeisista tykkääville
+* robodoc - tietokannan dokumentoinnin generoimiseen
 
 ## Ratkaisun arkkitehtuuri
 Ratkaisu perustuu Dijkstran hakualgoritmiin. Hakualgoritmi on kuvattu wikipediassa: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Pseudocode . Varsinainen laskenta tapahtuu tietokannassa funktioilla aputauluja käyttäen. Itse web-ratkaisu on hajautettu kahteen osaan: backendiin ja käyttöliittymään. Backend on löyhästi REST-määritelmän toteuttava API, jota käyttöliittymän javascript-kutsuu ajaxilla. Toteutuksessa on sovellettu MVC-arkkitehtuuria. Teoriassa kaikki kolme ohjelmisto-osaa voidaan asentaa vaikka omiin kontteihinsa ja kutakin konttia ajaa useampia rinnakkain. Backend kutsuu kantaa aina yhtenä atomisena kutsuna, joten ei ole väliksi vaikka eri kutsujen välissä vastaisi toinen instanssi kantaa. Frontend:in ja Backendin välinen kommunikaatio on myös tilatonta, joten ei ole väliä mitä backendiä mikäkin frontend kutsuu.
@@ -33,22 +36,9 @@ Asennus kannattaa aloittaa hakemalla koko repository johonkin paikkaan kohdekone
 
 Luodaan ratkaisun tarvitsema kanta:
 
-`./createDatabase.sh`
+`ant database`
 
-Luodaan kantaan taulut ja ladataan funktiot:
-
-`./loadsql.sh`
-
-Asetetaan ympäristömuuttujat php-skriptejä varten:
-
-    source local.sh
-    cd src
-
-Ladataan "kartta" tietokantaan:
-
-`php initializeDatabase.php ../haaste/reittiopas.json`
-
-Näiden temppujen jälkeen ratkaisun komentorivityökalun pitäisi jo toimia ja sillä voi kysellä reittejä. Esimerkiksi:
+Tämän jälkeen ratkaisun komentorivityökalun pitäisi jo toimia ja sillä voi kysellä reittejä. Esimerkiksi:
 
 [mos@coredump src]$ `./routeIt.php A O`
 

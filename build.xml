@@ -5,7 +5,7 @@
         description="Analysoi, ajelee testejä, generoi dokumentaation ja rakentaa koko ratkaisun"/>
 
     <target name="database"
-            depends="createDatabase,loadSql,initDatabase,database-docs"
+            depends="createDatabase,loadSql,initDatabase"
             description="Rakentaa ja lataa tietokannen, generoi dokumentaation"/>
 
     <target name="createDatabase"
