@@ -9,7 +9,22 @@
 
     <target name="full-build"
         depends="database"
-        description="Analysoi, ajelee testejä, generoi dokumentaation ja rakentaa koko ratkaisun"/>
+        description="Rakentaa koko ratkaisun"/>
+
+    <target name="analysoi"
+            depends="clean, buildDirs"
+            description="Analysoi php-osan koodia.">
+        <parallel threadCount="2">
+            <sequential>
+                <antcall target="pdepend"/>
+                <antcall target="phpmd"/>
+            </sequential>
+            <antcall target="lint"/>
+            <antcall target="phpcpd"/>
+            <antcall target="phpcs"/>
+            <antcall target="phploc"/>
+        </parallel>
+    </target>
 
     <target name="database"
             depends="createDatabase,loadSql,initDatabase"
@@ -48,6 +63,7 @@
             unless="clean.done"
             description="Siivotaan projekti">
         <delete dir="${basedir}/doc/database"/>
+        <delete dir="${basedir}/doc/phpdox" />
         <delete dir="${basedir}/build/phpdox"/>
         <delete dir="${basedir}/doc/api"/>
         <delete dir="${basedir}/build/logs"/>
@@ -146,6 +162,21 @@
             <arg value="--exclude vendor,startbootstrap-small-business" />
         </exec>
         <property name="phpmd.done" value="true"/>
+    </target>
+
+    <target name="lint"
+            unless="lint.done"
+            description="Syntaksitarkistus">
+        <apply executable="php" taskname="lint">
+            <arg value="-l" />
+            <fileset dir="${basedir}/src">
+                <include name="model/*.php"/>
+                <include name="view/*.php" />
+                <include name="controller/*.php" />
+                <include name="*.php"/>
+            </fileset>
+        </apply>
+        <property name="lint.done" value="true" />
     </target>
 </project>
 

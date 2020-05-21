@@ -83,7 +83,7 @@ class DijkstraModel
     {
         $res = [ false, false];
         $started=false;
-        if(!$this->inTransaction) {
+        if (!$this->inTransaction) {
             $started=true;
             $this->db->beginTransaction();
         }
@@ -102,7 +102,7 @@ class DijkstraModel
         
         $q = new QsetModel($this->db, $this->log);
         $q->cleanup($id);
-        if($started) {
+        if ($started) {
             $this->db->commit();
         }
         return $res;
