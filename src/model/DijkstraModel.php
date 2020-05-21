@@ -99,6 +99,22 @@ class DijkstraModel
     }
 
     /**
+     *
+     * Ratkaisu
+     *
+     * Yhdistää reitityksen ja ratkaisun tuloksen käsittelyn
+     *
+     * @param   string  $from   Lähtöpysäkki
+     * @param   string  $to     Kohdepysäkki
+     *
+     */
+    public function solve(string $from, string $to)
+    {
+        $res = $this->processResult($this->route($from, $to));
+        return $res;
+    }
+    
+    /**
      * Linja-optimointi ja Postgresql-taulukon purku
      *
      * Samalla kun puretaan postgresql-line-taulukko, katsellaan millä

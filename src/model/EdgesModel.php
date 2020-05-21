@@ -102,7 +102,7 @@ class EdgesModel extends \mosBase\Malli
      */
     public function getNodes()
     {
-        $s = "select node from getNodes() order by node asc;";
+        $s = "select node from getNodes() group by node order by node asc;";
         $st = $this->pdoPrepare($s, $this->db);
         $this->pdoExecute($st);
         return $st->fetchAll(\PDO::FETCH_ASSOC);

@@ -1,4 +1,18 @@
 <?php
+/**
+ * Frontend
+ *
+ * PHP version 7.2
+ *
+ * Käyttöliittymä
+ *
+ * @category  Frontend
+ * @package   Koodihaaste
+ * @author    Mauri "Fuula-setä" Sahlberg <fuula@generalfailure.net>
+ * @copyright 2020 Mauri Sahlberg, Helsinki
+ * @license   GPL-2.0 http://opensource.org/licenses/GPL-2.0
+ * @link      https://github.com/daFool/koodihaaste_solidabis
+ */
 namespace KOODIHAASTE;
 
 ini_set('display_errors', 1);
@@ -23,7 +37,7 @@ $f3->route("GET /", function ($f3) {
     $twig = new \Twig\Environment($loader);
     $basepath = $conf->get("General")["basePath"];
     require "$basepath/tekstit.php";
-    $sivu = new vPage($twig, $t, $conf);
+    $sivu = new PageView($twig, $t, $conf);
     $sivu->nayta("etusivu.html");
 });
 
