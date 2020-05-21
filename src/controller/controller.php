@@ -1,7 +1,8 @@
 <?php
 namespace KOODIHAASTE;
 
-class controller {
+class controller
+{
     protected $db;
     protected $log;
     protected $conf;
@@ -15,12 +16,13 @@ class controller {
 
     public const CHECKRE='/[A-R]{1}/';
 
-    public function __construct() {
-        $a = range('A','Z');
-        foreach($a as $i=>$l) {
+    public function __construct()
+    {
+        $a = range('A', 'Z');
+        foreach ($a as $i => $l) {
             $this->map[$l]=$i+1;
         }
-        $this->cmap = [ 
+        $this->cmap = [
             "vihreä"=>"green",
             "keltainen"=>"yellow",
             "punainen"=>"red",
@@ -28,7 +30,8 @@ class controller {
         ];
     }
   
-    protected function init($f3) {
+    protected function init($f3)
+    {
         $this->f3 = $f3;
         $this->db = $f3->get("db");
         $this->log = $f3->get("log");
@@ -38,11 +41,13 @@ class controller {
         $this->edges = new edges($this->db, $this->log);
     }
 
-    public function get($f3) {
-        $this->init($f3);    
+    public function get($f3)
+    {
+        $this->init($f3);
     }
 
-    public function json($v) {
+    public function json($v)
+    {
         header("Content-type: application/json");
         echo json_encode($v);
     }

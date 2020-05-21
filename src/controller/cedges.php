@@ -1,13 +1,15 @@
 <?php
 namespace KOODIHAASTE;
 
-class cedges extends controller {
+class cedges extends controller
+{
    
     public const TO="to";
     public const FROM="from";
     public const COLOR="color";
     
-    public function get($f3) {
+    public function get($f3)
+    {
         parent::get($f3);
 
         $edges = $this->edges->getEdges();
@@ -19,8 +21,8 @@ class cedges extends controller {
          * to: noden numeroid
          **/
         $edgebase = [];
-        foreach($edges as $edge) {
-            $edgebase[]= [ 
+        foreach ($edges as $edge) {
+            $edgebase[]= [
                 self::FROM => $this->map[$edge[edges::SRC]],
                 self::TO => $this->map[$edge[edges::DST]],
                 self::COLOR => $this->cmap[$edge[self::COLOR]],

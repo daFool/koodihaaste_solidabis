@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Koodihaaste" default="full-build">
+    <property name="phploc"  value="phploc"/>
+    <property name="phpdox"  value="phpdox"/>
+    <property name="phpcs"   value="phpcs"/>
+
     <target name="full-build"
         depends="database"
         description="Analysoi, ajelee testejä, generoi dokumentaation ja rakentaa koko ratkaisun"/>
@@ -41,6 +45,8 @@
             unless="clean.done"
             description="Siivotaan projekti">
         <delete dir="${basedir}/doc/database"/>
+        <delete dir="${basedir}/build/phpdox"/>
+        <delete dir="${basedir}/doc/api"/>
         <property name="clean.done" value="true"/>
     </target>
 
@@ -57,5 +63,37 @@
         <property name="putsplank" value="true"/>
     </target>
 
+    <target name="phploc"
+            unless="phploc.done"
+            description="PHP-koodin rakenteen ja koon arviointi">
+        <exec executable="${phploc}" taskname="phploc">
+            <arg value="--count-tests"/>
+            <arg path="${basedir}/src"/>
+            <arg value="--exclude=vendor"/>
+            <arg value="--exclude=startbootstrap-small-business"/>
+        </exec>
+        <property name="phploc.done" value="true"/>
+    </target>
+
+    <target name="phpcs"
+            unless="phpcs.done"
+            description="PHP-koodin PSR-2 standardin yhteensopivuus">
+        <exec executable="${phpcs}" taskname="phpcs">
+            <arg value="--standard=PSR2" />
+            <arg value="--extensions=php" />
+            <arg value="--ignore=vendor" />
+            <arg value="--ignore=startboostrap-small-business" />
+            <arg path="${basedir}/src" />
+        </exec>
+        <property name="phpcs.done" value="true" />
+    </target>      
+
+    <target name="phpdox"
+            unless="phpdox.done"
+            depends="phploc"
+            description="PHP-koodin dokumentointi">
+        <exec executable="${phpdox}" dir="${basedir}/build" taskname="phpdox"/>
+        <property name="phpdox.done" value="true"/>
+    </target>
 </project>
 

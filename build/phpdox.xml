@@ -1,0 +1,15 @@
+<phpdox xmlns="http://xml.phpdox.net/config">
+    <project name="Koodihaaste" source="${basedir}/../src" workdir="${basedir}/phpdox">
+        <collector publiconly="false">
+            <include mask="*.php" />
+            <exclude mask="**vendor**" />
+            <exclude mask="**startbootstrap-small-business**" />
+        </collector>
+
+        <generator output="${basedir}/../doc">
+            <build engine="html" enabled="true" output="phpdox">
+                <file extension="html" />
+            </build>
+        </generator>
+    </project>
+</phpdox>

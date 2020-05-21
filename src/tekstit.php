@@ -1,4 +1,18 @@
 <?php
+/**
+ * Tekstit
+ *
+ * PHP version 7.2
+ *
+ * Käännettävissä olevat merkkijonot
+ *
+ * @category  Common
+ * @package   Koodihaaste
+ * @author    Mauri "Fuula-setä" Sahlberg <fuula@generalfailure.net>
+ * @copyright 2020 Mauri Sahlberg, Helsinki
+ * @license   GPL-2.0 http://opensource.org/licenses/GPL-2.0
+ * @link      https://github.com/daFool/koodihaaste_solidabis
+ */
 $t = [
     /* Navigaatio */
     "tKoti" => _("Koodihaaste"),

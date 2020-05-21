@@ -1,12 +1,14 @@
 <?php
 namespace KOODIHAASTE;
 
-class vPage {
+class vPage
+{
     protected $twig;
     protected $variables;
     protected $conf;
 
-    public function __construct(\Twig\Environment $twig, array $v, \mosBase\Config $conf) {
+    public function __construct(\Twig\Environment $twig, array $v, \mosBase\Config $conf)
+    {
         $this->twig = $twig;
         $this->variables = $v;
         $this->conf = $conf;
@@ -26,9 +28,9 @@ class vPage {
         $this->variables["tNodeSpacing"]= $tuloskartta["nodeSpacing"];
     }
     
-    public function nayta(string $template) {
+    public function nayta(string $template)
+    {
         $this->twig->load($template);
         echo $this->twig->render($template, $this->variables);
     }
-
 }
