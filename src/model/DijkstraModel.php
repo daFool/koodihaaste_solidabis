@@ -33,11 +33,13 @@ namespace KOODIHAASTE;
 class DijkstraModel
 {
     /**
-     * @var \mosBase\Database   $db     Tietokantayhteys
-     * @var \mosBase\Log        $log    Logi
+     * @var \mosBase\Database   $db             Tietokantayhteys
+     * @var \mosBase\Log        $log            Logi
+     * @var bool                $inTransaction  Ollaanko transaktion sisällä?
      */
     private $db;
     private $log;
+    private $inTransaction;
 
     public const BUSSTOP="vertex";
     public const DISTANCE="dist";
@@ -62,6 +64,7 @@ class DijkstraModel
     {
         $this->db = $db;
         $this->log = $log;
+        $this->inTransaction = false;
     }
 
     /**
@@ -79,7 +82,11 @@ class DijkstraModel
     public function route(string $from, string $to) : array
     {
         $res = [ false, false];
-        
+        $started=false;
+        if(!$this->inTransaction) {
+            $started=true;
+            $this->db->beginTransaction();
+        }
         $s = "select dijkstra(:from, :to)";
         $st=$this->pdoPrepare($s, $this->db);
         $data = [ "from"=>$from, "to"=>$to];
@@ -95,6 +102,9 @@ class DijkstraModel
         
         $q = new QsetModel($this->db, $this->log);
         $q->cleanup($id);
+        if($started) {
+            $this->db->commit();
+        }
         return $res;
     }
 
@@ -110,10 +120,14 @@ class DijkstraModel
      */
     public function solve(string $from, string $to)
     {
+        $this->db->beginTransaction();
+        $this->inTransaction=true;
         $res = $this->processResult($this->route($from, $to));
+        $this->db->commit();
+        $this->inTransaction=false;
         return $res;
     }
-    
+
     /**
      * Linja-optimointi ja Postgresql-taulukon purku
      *

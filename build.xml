@@ -3,6 +3,9 @@
     <property name="phploc"  value="phploc"/>
     <property name="phpdox"  value="phpdox"/>
     <property name="phpcs"   value="phpcs"/>
+    <property name="pdepend" value="pdepend"/>
+    <property name="phpcpd" value="phpcpd" />
+    <property name="phpmd" value="phpmd" />
 
     <target name="full-build"
         depends="database"
@@ -47,6 +50,8 @@
         <delete dir="${basedir}/doc/database"/>
         <delete dir="${basedir}/build/phpdox"/>
         <delete dir="${basedir}/doc/api"/>
+        <delete dir="${basedir}/build/logs"/>
+        <delete dir="${basedir}/build/pdepend" />
         <property name="clean.done" value="true"/>
     </target>
 
@@ -61,6 +66,14 @@
             <arg value="koodihaaste"/>
         </exec>
         <property name="putsplank" value="true"/>
+    </target>
+
+    <target name="buildDirs"
+            unless="buildDirs.done"
+            description="Luo build/logs-hakemiston">
+        <mkdir dir="${basedir}/build/logs"/>
+        <mkdir dir="${basedir}/build/pdepend"/>
+        <property name="buildDirs.done" value="true"/>
     </target>
 
     <target name="phploc"
@@ -94,6 +107,45 @@
             description="PHP-koodin dokumentointi">
         <exec executable="${phpdox}" dir="${basedir}/build" taskname="phpdox"/>
         <property name="phpdox.done" value="true"/>
+    </target>
+
+    <target name="pdepend"
+            unless="pdepend.done"
+            description="Laskee ohjelmistometriikan PHP_Dependillä ja tallettaa tuloksen xml-formaatissa.">
+        <exec executable="${pdepend}" taskname="pdepend">
+            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml"/>
+            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg"/>
+            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg"/>
+            <arg value="--ignore=vendor,startbootstrap-small-business" />            
+            <arg path="${basedir}/src"/>
+        </exec>
+        <property name="pdepend.done" value="true"/>
+    </target>
+
+    <target name="phpcpd"
+            unless="phpcpd.done"
+            description="Etsii toisteisen koodin.">
+        <exec executable="${phpcpd}" taskname="phpcpd">
+            <arg value="--exclude=vendor"/>
+            <arg value="--exclude=startbootstrap-small-business" />
+            <arg value="--log-pmd=${basedir}/build/logs/phpcpd.xml"/>            
+            <arg path="${basedir}/src" />
+        </exec>
+        <property name="phpcpd.done" value="true"/>
+    </target>
+
+    <target name="phpmd"
+            unless="phpmd.done"
+            description="Sotkuisen koodin etsintä.">
+        <exec executable="${phpmd}" taskname="phpmd">
+            <arg path="${basedir}/src"/>
+            <arg value="xml"/>
+            <arg path="${basedir}/build/phpmd.xml" />
+            <arg value="--reportfile" />
+            <arg path="${basedir}/build/logs/pmd.xml" />
+            <arg value="--exclude vendor,startbootstrap-small-business" />
+        </exec>
+        <property name="phpmd.done" value="true"/>
     </target>
 </project>
 
