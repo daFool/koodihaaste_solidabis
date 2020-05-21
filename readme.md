@@ -38,7 +38,11 @@ Luodaan ratkaisun tarvitsema kanta:
 
 `ant database`
 
-Tämän jälkeen ratkaisun komentorivityökalun pitäisi jo toimia ja sillä voi kysellä reittejä. Esimerkiksi:
+Tämän jälkeen ratkaisun komentorivityökalun pitäisi jo toimia ja sillä voi kysellä reittejä, kunhan alustaa ympäristömuuttujat. Ympäristömuuttujien alustaminen:
+
+`source local.sh`
+
+Nyt komentorivityökalua voi ajaa hakemistossa src. Esimerkiksi:
 
 [mos@coredump src]$ `./routeIt.php A O`
 
