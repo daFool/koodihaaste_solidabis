@@ -105,24 +105,15 @@ class DijkstraController extends Controller
         $oset=$curset;
         for ($i++; $i<count($route); $i++) {
             if (is_null($curset) || empty($curset)) {
-  //              echo "<br>Escape with empty curset<br>";
-                return $i ? $route[$i-1][DijkstraModel::WITH] : $route[$i][DijkstraModel::WITH];
+                return $route[$i-1][DijkstraModel::WITH];
             }
             $a = array_intersect($curset, $route[$i][DijkstraModel::WITH]);
             if (empty($a) || is_null($a)) {
-  //              echo "<br>Escape with empty intersection<br>";
                 reset($curset);
                 return $curset[key($curset)];
             }
             if (count($a)==1) {
- /*               echo "<br>Escape with A<br>";
-                reset($a);
-                var_dump(key($a));
-                var_dump($a[key($a)]);
-                echo "<br>Escape with A<br>"; */
-                $c = $a[key($a)];
-                // var_dump($c);
-                return $c;
+                return $a[key($a)];
             }
             $curset=$a;
         }

@@ -81,7 +81,6 @@ class DijkstraModel
      */
     public function route(string $from, string $to) : array
     {
-        $res = [ false, false];
         $started=false;
         if (!$this->inTransaction) {
             $started=true;

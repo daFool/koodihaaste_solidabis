@@ -54,7 +54,7 @@ class NodeController extends Controller
          * ja siitä eteenpäin aakkosjärjestyksessä
          */
         $nodebase = [];
-        foreach ($nodes as $id => $label) {
+        foreach ($nodes as $label) {
             $nodebase[]=[ self::ID=>$this->map[$label[EdgesModel::NODE]], self::LABEL =>$label[EdgesModel::NODE] ];
         }
         $this->json($nodebase);

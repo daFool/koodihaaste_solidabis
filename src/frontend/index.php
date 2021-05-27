@@ -15,21 +15,12 @@
  */
 namespace KOODIHAASTE;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-$startup = getenv("koodihaaste") ? getenv("koodihaaste")."/src/startup.php" : false;
+$startup = getenv("koodihaaste");
 if (!$startup) {
     die("Environment not set properly, check .httaccess!");
 }
 
-require $startup;
-require $conf->get("General")["vendor"];
-$f3 = \Base::instance();
-$f3->set("conf", $conf);
-$f3->set("db", $db);
-$f3->set("log", $log);
+require $startup."/src/webstartup.php";
 
 $f3->route("GET /", function ($f3) {
     $conf = $f3->get("conf");

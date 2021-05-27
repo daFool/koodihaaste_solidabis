@@ -39,6 +39,10 @@ class PageView
     protected $variables;
     protected $conf;
 
+    public const GENERAL="General";
+    public const LSEP="LevelSeparation";
+    public const NSEP="NodeSpacing";
+    public const DIR="Direction";
     /**
      * Konstruktori
      *
@@ -57,17 +61,17 @@ class PageView
         $reittikartta = $conf->get("Reittikartta");
         $tuloskartta = $conf->get("Tuloskartta");
 
-        $this->variables["baseUrl"] = $this->conf->get("General")["baseUrl"];
-        $this->variables["basePath"]= $this->conf->get("General")["basePath"];
-        $this->variables["backendUrl"]= $this->conf->get("General")["backEndUrl"];
+        $this->variables["baseUrl"] = $this->conf->get(self::GENERAL)["baseUrl"];
+        $this->variables["basePath"]= $this->conf->get(self::GENERAL)["basePath"];
+        $this->variables["backendUrl"]= $this->conf->get(self::GENERAL)["backEndUrl"];
         $this->variables["xsize"]= $reittikartta["xsize"];
         $this->variables["ysize"]= $reittikartta["ysize"];
-        $this->variables["direction"]= $reittikartta["direction"];
-        $this->variables["levelSeparation"]= $reittikartta["levelSeparation"];
-        $this->variables["nodeSpacing"]= $reittikartta["nodeSpacing"];
-        $this->variables["tDirection"]= $tuloskartta["direction"];
-        $this->variables["tLevelSeparation"]= $tuloskartta["levelSeparation"];
-        $this->variables["tNodeSpacing"]= $tuloskartta["nodeSpacing"];
+        $this->variables[self::DIR]= $reittikartta[self::DIR];
+        $this->variables[self::LSEP]= $reittikartta[self::LSEP];
+        $this->variables[self::NSEP]= $reittikartta[self::NSEP];
+        $this->variables["tDirection"]= $tuloskartta[self::DIR];
+        $this->variables["tLevelSeparation"]= $tuloskartta[self::LSEP];
+        $this->variables["tNodeSpacing"]= $tuloskartta[self::NSEP];
     }
 
     /**

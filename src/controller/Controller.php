@@ -27,7 +27,7 @@ namespace KOODIHAASTE;
  * @copyright 2020 Mauri Sahlberg, Helsinki
  * @license   GPL-2.0 http://opensource.org/licenses/GPL-2.0
  * @link      https://github.com/daFool/koodihaaste_solidabis
- *
+ * 
  */
 abstract class Controller
 {
@@ -56,7 +56,7 @@ abstract class Controller
 
     /**
      * Konstruktori
-     *
+     * 
      * Luo kirjain->numero- ja väri->enkkuväri- mäppäystaulut
      */
     public function __construct()
@@ -74,8 +74,8 @@ abstract class Controller
     }
   
     /**
-     * Asettaa luokkamuuttujat
-     *
+     * Asettaa luokkamuuttujat 
+     * 
      * Hakee Fat Free Coren "pankista" kannan, login ja konfiguraation. Perustaa ratkaisu- ja kartta-oliot.
      * @param object    $f3 Fat Free Core
      */
@@ -92,9 +92,9 @@ abstract class Controller
 
     /**
      * get-operaatiot
-     *
+     * 
      * Huolehtii siitä, että luokkamuuttujat alustetaan
-     *
+     * 
      * @param object    $f3 Fat Free Core
      */
     public function get($f3)
@@ -104,11 +104,11 @@ abstract class Controller
 
     /**
      * JSON-palaute
-     *
+     * 
      * Tulostaa json-palautteen ja sen tarvitseman http(s) content-headerin
-     *
+     * 
      * @param mixed $v  Jsoniksi-muutettava rakenne, yleensä array
-     *
+     * 
      */
     public function json($v)
     {
